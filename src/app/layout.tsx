@@ -47,9 +47,9 @@ export const metadata: Metadata = {
     url: "https://amier-3d-portfolio.vercel.app",
     siteName: "AMIER — Portfolio",
     type: "website",
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "AMIER — portfolio" }],
+    images: [{ url: "/og", width: 1200, height: 630, alt: "AMIER — portfolio" }],
   },
-  twitter: { card: "summary_large_image", title, description: desc, images: ["/og.jpg"] },
+  twitter: { card: "summary_large_image", title, description: desc, images: ["/og"] },
   robots: { index: true, follow: true },
   alternates: { canonical: "/" },
 };
