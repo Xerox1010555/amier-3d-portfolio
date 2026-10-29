@@ -65,7 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body>
         <a href="#work" className="skip-link">Skip to projects</a>
-        <div className="page-glow" aria-hidden="true" />
+        <div className="page-poles" aria-hidden="true" />
         <div className="page-noise" aria-hidden="true" />
         {children}
       </body>
