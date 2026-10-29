@@ -134,7 +134,7 @@ export const PROJECTS: Project[] = [
     detail:
       "A brand microsite for a zero-sugar soda line: product storytelling, nutrition tables and an interactive 3D can — built with Lit and official <model-viewer> under a strict TS setup (76 type errors squeezed to 0).",
     tags: ["Lit", "model-viewer", "TypeScript strict", "Branding"],
-    live: "https://diet-soda.vercel.app",
+    live: "https://diet-soda-blush.vercel.app",
     repo: "https://github.com/Xerox1010555/diet-soda",
     shot: "/shots/soda.jpg",
     accent: "#7ef0c9",
