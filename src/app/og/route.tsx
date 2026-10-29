@@ -4,7 +4,7 @@ export const runtime = "nodejs";
 
 const size = { width: 1200, height: 630 };
 
-/** Branded OG card — generated at request time, zero external assets. */
+/** Editorial OG card — paper & ink, generated at request time, zero external assets. */
 export function GET() {
   return new ImageResponse(
     (
@@ -15,102 +15,110 @@ export function GET() {
           justifyContent: "space-between",
           width: "100%",
           height: "100%",
-          background: "#05060a",
+          background: "#f2ede4",
+          color: "#16130f",
           padding: "64px 72px",
           fontFamily: "sans-serif",
           position: "relative",
         }}
       >
-        {/* ambient glows */}
+        {/* print frame */}
         <div
           style={{
             display: "flex",
             position: "absolute",
-            top: -180,
-            right: -120,
-            width: 520,
-            height: 520,
-            borderRadius: 9999,
-            background: "rgba(167, 139, 250, 0.16)",
+            top: 24,
+            left: 24,
+            bottom: 24,
+            right: 24,
+            border: "2px solid #16130f",
+          }}
+        />
+        {/* vermilion block */}
+        <div
+          style={{
+            display: "flex",
+            position: "absolute",
+            right: 96,
+            top: 96,
+            width: 88,
+            height: 88,
+            background: "#ff4d00",
           }}
         />
         <div
           style={{
             display: "flex",
             position: "absolute",
-            bottom: -220,
-            left: -140,
-            width: 560,
-            height: 560,
-            borderRadius: 9999,
-            background: "rgba(34, 211, 238, 0.13)",
+            left: 96,
+            bottom: 130,
+            width: 180,
+            height: 12,
+            background: "#ff4d00",
           }}
         />
 
         {/* top row */}
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 46,
-              height: 46,
-              borderRadius: 13,
-              background: "linear-gradient(135deg, #22d3ee, #a78bfa)",
-              color: "#04070d",
-              fontSize: 26,
-              fontWeight: 800,
-            }}
-          >
-            A
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ display: "flex", color: "#6e675c", fontSize: 20, letterSpacing: 5 }}>
+            AMIER — PORTFOLIO ✱ EDITION 2026
           </div>
-          <div style={{ display: "flex", color: "#9aa6b5", fontSize: 22, letterSpacing: 4 }}>
-            AMIER — FULL-STACK &amp; 3D WEB ENGINEERING
+          <div style={{ display: "flex", color: "#6e675c", fontSize: 20, letterSpacing: 4 }}>
+            №01
           </div>
         </div>
 
         {/* headline */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
           <div
             style={{
               display: "flex",
-              fontSize: 132,
+              fontSize: 148,
               fontWeight: 700,
-              color: "#eef2f7",
-              letterSpacing: -3,
+              color: "#16130f",
+              letterSpacing: -4,
               lineHeight: 1,
             }}
           >
-            AMIER
+            AMIER.
           </div>
           <div
             style={{
               display: "flex",
-              width: 220,
-              height: 10,
-              borderRadius: 6,
-              background: "linear-gradient(90deg, #22d3ee, #a78bfa)",
+              alignItems: "center",
+              gap: 24,
+              fontSize: 38,
+              fontWeight: 700,
+              color: "#16130f",
             }}
-          />
-          <div style={{ display: "flex", color: "#c3ccd8", fontSize: 34, marginTop: 8 }}>
-            Immersive 3D · AI products · secure full-stack platforms
+          >
+            <span style={{ display: "flex" }}>Full-Stack Developer</span>
+            <span style={{ display: "flex", color: "#ff4d00" }}>✱</span>
+            <span
+              style={{
+                display: "flex",
+                color: "transparent",
+                WebkitTextStroke: "1.4px #16130f",
+              }}
+            >
+              3D Engineer
+            </span>
           </div>
         </div>
 
         {/* stats chips */}
-        <div style={{ display: "flex", gap: 16 }}>
-          {["12 live deployments", "14 public repos", "4+ years", "50+ projects"].map((chip) => (
+        <div style={{ display: "flex", gap: 14 }}>
+          {["12 LIVE DEPLOYMENTS", "14 PUBLIC REPOS", "4+ YEARS", "50+ PROJECTS"].map((chip) => (
             <div
               key={chip}
               style={{
                 display: "flex",
-                padding: "12px 26px",
-                borderRadius: 999,
-                border: "1px solid rgba(255,255,255,0.14)",
-                background: "rgba(255,255,255,0.05)",
-                color: "#eef2f7",
-                fontSize: 24,
+                padding: "12px 24px",
+                border: "1.5px solid #16130f",
+                color: "#16130f",
+                fontSize: 21,
+                letterSpacing: 2,
+                background: "#f2ede4",
               }}
             >
               {chip}

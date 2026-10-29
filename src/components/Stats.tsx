@@ -62,7 +62,10 @@ function Stat({ n, suffix, label, run }: { n: number; suffix: string; label: str
 
   return (
     <div className="stat">
-      <b>{val}{suffix}</b>
+      <b>
+        {val}
+        {suffix ? <sup>{suffix}</sup> : null}
+      </b>
       <span>{label}</span>
     </div>
   );

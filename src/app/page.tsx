@@ -26,15 +26,24 @@ export default function Page() {
         <Contact />
       </main>
       <footer>
-        <div className="wrap foot">
-          <div className="madeby">
-            © {year} — designed &amp; engineered by <span>AMIER</span> · Next.js + React Three Fiber
-          </div>
-          <div className="foot-links">
-            <a href={LINK.github} target="_blank" rel="noreferrer">GitHub</a>
-            <a href={LINK.whatsapp} target="_blank" rel="noreferrer">WhatsApp</a>
-            <a href={LINK.telegram} target="_blank" rel="noreferrer">Telegram</a>
-            <a href={LINK.cv} target="_blank" rel="noreferrer">CV ↓</a>
+        <div className="wrap">
+          <div className="foot">
+            <div>
+              <div className="bigmark">
+                AMIER<span className="ast">✱</span>
+              </div>
+              <div className="foot-links">
+                <a href={LINK.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+                <a href={LINK.whatsapp} target="_blank" rel="noreferrer">WhatsApp ↗</a>
+                <a href={LINK.telegram} target="_blank" rel="noreferrer">Telegram ↗</a>
+                <a href={LINK.cv} target="_blank" rel="noreferrer">CV ↓</a>
+              </div>
+            </div>
+            <div className="foot-meta">
+              © {year} · Designed &amp; engineered by Amier
+              <br />
+              Next.js 15 ✱ React Three Fiber · Cairo, printing worldwide
+            </div>
           </div>
         </div>
       </footer>
