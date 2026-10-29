@@ -9,6 +9,12 @@ import { useEffect } from "react";
  */
 export default function Reveal() {
   useEffect(() => {
+    // ?static=1 → show everything immediately (print, screenshots, no-JS graceful case)
+    const isStatic = new URLSearchParams(window.location.search).has("static");
+    if (isStatic) {
+      document.querySelectorAll<HTMLElement>(".reveal").forEach((el) => el.classList.add("in"));
+      return;
+    }
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
