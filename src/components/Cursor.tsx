@@ -2,13 +2,14 @@
 
 import { useEffect, useRef } from "react";
 
-/** Custom cursor: smooth lerped ring + instant dot. Disabled on touch devices. */
+/** Restrained cursor: lerped cyan ring + instant dot, disabled on touch and reduced-motion. */
 export default function Cursor() {
   const ring = useRef<HTMLDivElement>(null);
   const dot = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (window.matchMedia("(hover: none), (max-width: 720px)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let x = window.innerWidth / 2;
     let y = window.innerHeight / 2;
@@ -24,33 +25,36 @@ export default function Cursor() {
       if (dot.current) {
         dot.current.style.transform = `translate(${tx}px, ${ty}px)`;
       }
-      const t = e.target as HTMLElement | null;
-      const hovering = !!t?.closest?.("a, button, [role='button'], input, textarea, select");
-      targetScale = hovering ? 1.7 : 1;
+      const tgt = e.target as HTMLElement | null;
+      const hovering = !!tgt?.closest?.("a, button, [role='button'], input, textarea, select");
+      targetScale = hovering ? 1.6 : 1;
     };
 
     const loop = () => {
-      x += (tx - x) * 0.18;
-      y += (ty - y) * 0.18;
-      scale += (targetScale - scale) * 0.2;
+      x += (tx - x) * 0.16;
+      y += (ty - y) * 0.16;
+      scale += (targetScale - scale) * 0.14;
       if (ring.current) {
-        ring.current.style.transform = `translate(${x}px, ${y}px) scale(${scale.toFixed(3)})`;
+        ring.current.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
       }
       raf = requestAnimationFrame(loop);
     };
 
-    window.addEventListener("mousemove", move, { passive: true });
+    document.documentElement.classList.add("has-cursor");
     raf = requestAnimationFrame(loop);
+    window.addEventListener("mousemove", move, { passive: true });
+
     return () => {
-      window.removeEventListener("mousemove", move);
       cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", move);
+      document.documentElement.classList.remove("has-cursor");
     };
   }, []);
 
   return (
-    <>
-      <div className="cursor" ref={ring} aria-hidden="true" />
-      <div className="cursor-dot" ref={dot} aria-hidden="true" />
-    </>
+    <div className="cursor-layer" aria-hidden="true">
+      <div className="cursor-ring" ref={ring} />
+      <div className="cursor-dot" ref={dot} />
+    </div>
   );
 }

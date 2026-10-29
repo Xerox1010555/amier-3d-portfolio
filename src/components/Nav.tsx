@@ -1,16 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LINK } from "@/data/projects";
-
-const LINKS = [
-  { href: "#work", label: "Index" },
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Stack" },
-  { href: "#contact", label: "Contact" },
-];
+import { NAV } from "@/i18n/dictionary";
+import { useLang } from "@/i18n/lang";
 
 export default function Nav() {
+  const { lang, setLang, t } = useLang();
   const [open, setOpen] = useState(false);
   const [time, setTime] = useState("");
 
@@ -29,35 +25,54 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="nav" aria-label="Main">
+      <nav className="nav" aria-label={t(NAV.label)}>
         <div className="nav-inner">
           <a href="#top" className="logo" aria-label="AMIER — home">
             AMIER<span className="ast">✱</span>
           </a>
+
           <div className="nav-links">
-            {LINKS.map((l) => (
-              <a key={l.href} href={l.href}>{l.label}</a>
+            {NAV.links.map((l) => (
+              <a key={l.href} href={l.href}>{t(l.label)}</a>
             ))}
-            <a href={LINK.github} target="_blank" rel="noreferrer">GitHub ↗</a>
           </div>
-          <div className="nav-right">
-            <span className="nav-clock">{time}</span>
-            <a href={LINK.cv} target="_blank" rel="noreferrer" className="nav-cta">CV ↓</a>
-            <button className="nav-burger" aria-expanded={open} aria-label="Menu" onClick={() => setOpen((v) => !v)}>
-              {open ? "✕" : "≡"}
+
+          <div className="nav-tools">
+            <span className="nav-clock" aria-hidden="true">{time}</span>
+            <a className="nav-cv" href="/cv">{t(NAV.cv)}</a>
+            <button
+              type="button"
+              className="lang-btn"
+              aria-label={t(NAV.langAria)}
+              onClick={() => setLang(lang === "en" ? "ar" : "en")}
+            >
+              {t(NAV.langToggle)}
+            </button>
+            <button
+              type="button"
+              className="burger"
+              aria-label={open ? t(NAV.close) : t(NAV.menu)}
+              aria-expanded={open}
+              onClick={() => setOpen(!open)}
+            >
+              <span />
+              <span />
             </button>
           </div>
         </div>
       </nav>
-      <div className="nav-mobile" style={{ display: open ? "flex" : undefined }}>
-        {[
-          ...LINKS,
-          { href: LINK.github, label: "GitHub ↗" },
-          { href: LINK.cv, label: "CV ↓" },
-        ].map((l) => (
-          <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
-        ))}
-      </div>
+
+      {open && (
+        <div className="nav-sheet" role="dialog" aria-label={t(NAV.menu)}>
+          {NAV.links.map((l) => (
+            <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{t(l.label)}</a>
+          ))}
+          <a href="/cv" onClick={() => setOpen(false)}>{t(NAV.cv)} ↗</a>
+          <a href={LINK.github} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
+            GitHub ↗
+          </a>
+        </div>
+      )}
     </>
   );
 }

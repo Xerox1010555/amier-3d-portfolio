@@ -227,5 +227,5 @@ export const LINK = {
   telegram: "https://t.me/Amier1t5",
   github: "https://github.com/Xerox1010555",
   vercelProfile: "https://vercel.com/amier1",
-  cv: "/cv-amier.pdf",
+  cv: "/cv",
 };
