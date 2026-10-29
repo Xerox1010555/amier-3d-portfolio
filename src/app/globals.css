@@ -23,6 +23,12 @@
   --amber: #ffb35c;
   --amber-2: #ff9a3d;
   --danger: #ff8f8f;
+}
+
+/* Font stacks live on body (not :root): next/font's --font-body/--font-display
+   are defined by classes applied to <body>, and var() resolves against the
+   element where the *outer* var() is actually consumed. */
+body {
   --font-d: var(--font-display), "Space Grotesk", system-ui, sans-serif;
   --font-b: var(--font-body), "Manrope", system-ui, sans-serif;
   --font-m: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
@@ -30,9 +36,11 @@
   --r-lg: 22px;
 }
 
-html.lang-ar {
-  --font-d: "Cairo", var(--font-display), system-ui, sans-serif;
+/* Arabic: Cairo leads both stacks (set with the body, so var() can still see
+   the next/font tokens defined on the very same element). */
+html.lang-ar body {
   --font-b: "Cairo", var(--font-body), system-ui, sans-serif;
+  --font-d: "Cairo", var(--font-display), system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
