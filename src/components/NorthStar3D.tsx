@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
-import { Suspense, useEffect, useRef, useState, type ComponentRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import type { Orbit } from "@/data/stories";
@@ -155,29 +155,34 @@ function Ring({
   );
 }
 
-export type NorthStar3DHandle = ComponentRef<typeof Canvas>;
+/** CONSTRAINED PARALLAX — must live INSIDE the Canvas (R3F hook rules). */
+function Parallax({ worldRef, reduced }: { worldRef: { current: THREE.Group | null }; reduced: boolean }) {
+  useFrame((state) => {
+    if (reduced) return;
+    const g = worldRef.current;
+    if (!g) return;
+    const ty = state.pointer.x * 0.16;
+    const tx = state.pointer.y * 0.09;
+    g.rotation.y += (ty - g.rotation.y) * 0.04;
+    g.rotation.x += (tx - g.rotation.x) * 0.04;
+  });
+  return null;
+}
 
 export default function NorthStar3D({
   active,
   onSelect,
   labels,
+  onReady,
 }: {
   active: string;
   onSelect: (id: Orbit["id"]) => void;
   labels: Record<string, string>;
+  onReady?: () => void;
 }) {
   const reduced = useReducedMotion();
   const world = useRef<THREE.Group>(null!);
   const activeColor = `#${new THREE.Color(HUES[active] ?? HUES.software).getHexString()}`;
-
-  // Restrained parallax: the whole constellation leans toward the pointer.
-  useFrame((state) => {
-    if (reduced) return;
-    const ty = state.pointer.x * 0.16;
-    const tx = state.pointer.y * 0.09;
-    world.current.rotation.y += (ty - world.current.rotation.y) * 0.04;
-    world.current.rotation.x += (tx - world.current.rotation.x) * 0.04;
-  });
 
   return (
     <Canvas
@@ -186,12 +191,14 @@ export default function NorthStar3D({
       camera={{ position: [0, 0.55, 6.4], fov: 42 }}
       frameloop={reduced ? "demand" : "always"}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      onCreated={() => onReady?.()}
     >
       <Suspense fallback={null}>
         <SceneEnvironment />
         <ambientLight intensity={0.5} />
         <directionalLight position={[3, 4, 2]} intensity={0.9} />
         <group ref={world}>
+          <Parallax worldRef={world} reduced={reduced} />
           <Core activeColor={activeColor} reduced={reduced} />
           {RING_CFG.map((cfg) => (
             <Ring

@@ -285,7 +285,9 @@ section .kicker { margin-bottom: 8px; }
     radial-gradient(720px 420px at 50% 38%, rgba(46, 90, 150, 0.2), transparent 68%),
     rgba(9, 14, 28, 0.6);
 }
-.ns-canvas { position: absolute; inset: 0; }
+.ns-canvas { position: absolute; inset: 0; z-index: 1; }
+.ns-under { position: absolute; inset: 0; z-index: 0; }
+.ns-under.is-hidden { visibility: hidden; }
 .ns-panel { padding: 28px; display: grid; gap: 10px; align-content: start; }
 .ns-panel-tag { font-family: var(--font-d); font-weight: 700; font-size: 15px; letter-spacing: 0.04em; }
 .ns-panel h3 { margin: 0; font-size: 22px; line-height: 1.3; }
